@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:  # Allow manual triggering
 
 jobs:
   build:
@@ -19,13 +20,11 @@ jobs:
           java-version: '11'
 
       - name: Build with Maven
-        run: mvn clean install
+        run: |
+          cd "Selenium-Version-1"
+          mvn clean install
 
       - name: Run Tests
-        run: mvn test
-
-      - name: Upload Test Reports
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-reports
-          path: target/surefire-reports/*.xml  # Adjust this path based on where your reports are generated
+        run: |
+          cd "Selenium-Version-1/src/test/java"
+          mvn test

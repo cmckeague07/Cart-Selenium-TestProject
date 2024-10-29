@@ -16,7 +16,7 @@ class LoginPageTest {
     public void setUp() {
         // Set the path of the ChromeDriver executable
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win64\\chromedriver-win64\\chromedriver.exe\\");
-        driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize(); // Maximize the browser window
         driver.get("https://www.saucedemo.com/");
     }
