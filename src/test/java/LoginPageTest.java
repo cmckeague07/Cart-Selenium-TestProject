@@ -19,7 +19,7 @@ class LoginPageTest {
         if (chromeDriverPath != null) {
             System.setProperty("webdriver.chrome.driver", chromeDriverPath);
         } else {
-            System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver"); // Path for CI environment
+            System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win64\\chromedriver-win64\\chromedriver.exe"); // Path for CI environment
         }
 
         driver = new ChromeDriver(); // Corrected to use the instance variable
