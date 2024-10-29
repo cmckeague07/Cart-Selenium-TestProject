@@ -14,9 +14,15 @@ class LoginPageTest {
 
     @BeforeEach
     public void setUp() {
-        // Set the path of the ChromeDriver executable
-        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win64\\chromedriver-win64\\chromedriver.exe\\");
-        WebDriver driver = new ChromeDriver();
+        // Set the path of the ChromeDriver executable if needed
+        String chromeDriverPath = System.getenv("CHROME_DRIVER_PATH"); // Set this in your CI environment if needed
+        if (chromeDriverPath != null) {
+            System.setProperty("webdriver.chrome.driver", chromeDriverPath);
+        } else {
+            System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver"); // Path for CI environment
+        }
+
+        driver = new ChromeDriver(); // Corrected to use the instance variable
         driver.manage().window().maximize(); // Maximize the browser window
         driver.get("https://www.saucedemo.com/");
     }
@@ -51,7 +57,7 @@ class LoginPageTest {
         String actualMessage = errorMessage.getText();
 
         assertEquals(expectedMessage, actualMessage, "Error message does not match expected message.");
-       }
+    }
 
     @Test
     public void testLoginPasswordNegative(){
@@ -70,6 +76,7 @@ class LoginPageTest {
 
         assertEquals(expectedMessage, actualMessage, "Error message does not match expected message.");
     }
+
     @AfterEach
     public void tearDown() {
         // Close the browser after the test is done
