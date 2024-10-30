@@ -37,6 +37,11 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>5.3.0</version> <!-- Use the latest version -->
+        </dependency>
 
     </dependencies>
 
