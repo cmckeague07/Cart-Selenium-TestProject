@@ -1,7 +1,10 @@
+import org.example.BrowserUtility;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,24 +19,21 @@ public class CartTest {
 
     @Before
     public void setUp() {
-
-        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win64\\chromedriver-win64\\chromedriver.exe");
-        driver = new ChromeDriver();
-
-        // Set implicit wait
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-        // Open Sauce Demo website
-        driver.get("https://www.saucedemo.com/");
-
-        // Login with valid credentials
-        driver.findElement(By.id("user-name")).sendKeys("standard_user");
-        driver.findElement(By.id("password")).sendKeys("secret_sauce");
-        driver.findElement(By.id("login-button")).click();
+        driver = BrowserUtility.getDriver(); // Use BrowserUtils to get the WebDriver
+        driver.get("https://www.saucedemo.com/"); // Navigate to the test site
+    }
+    @After
+    public void tearDown() {
+        BrowserUtility.quitDriver(); // Use BrowserUtils to quit the WebDriver
     }
 
     @Test
     public void testAddToCartFunctionality() {
+        // Perform login
+        driver.findElement(By.id("user-name")).sendKeys("standard_user");
+        driver.findElement(By.id("password")).sendKeys("secret_sauce");
+        driver.findElement(By.id("login-button")).click();
+
         // Add a product to the cart
         driver.findElement(By.id("add-to-cart-sauce-labs-backpack")).click();
 
@@ -57,6 +57,12 @@ public class CartTest {
 
     @Test
     public void testCartCheckoutFunctionality() {
+
+        // Perform login
+        driver.findElement(By.id("user-name")).sendKeys("standard_user");
+        driver.findElement(By.id("password")).sendKeys("secret_sauce");
+        driver.findElement(By.id("login-button")).click();
+
         // Add a product to the cart
         driver.findElement(By.id("add-to-cart-sauce-labs-backpack")).click();
         driver.findElement(By.id("add-to-cart-sauce-labs-bolt-t-shirt")).click();
@@ -110,11 +116,5 @@ public class CartTest {
 
     }
 
-    @After
-    public void tearDown() {
-        // Close the browser
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+
 }
