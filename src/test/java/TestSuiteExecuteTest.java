@@ -9,5 +9,5 @@ import org.junit.Test;
         PerformanceTest.class
 })
 public class TestSuiteExecuteTest {
-    // This class remains empty; it is used only as a holder for the above annotations
+    // This class remains empty; 
 }
